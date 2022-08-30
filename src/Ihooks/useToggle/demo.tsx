@@ -1,25 +1,60 @@
-import { useMount, useBoolean } from 'ahooks';
-import { message } from 'antd';
+// import React from 'react';
+// import { useToggle } from 'ahooks';
+
+// export default () => {
+//   const [state, { toggle, setLeft, setRight }] = useToggle();
+
+//   return (
+//     <div>
+//       <p>Effects：{`${state}`}</p>
+//       <p>
+//         <button type="button" onClick={toggle}>
+//           Toggle
+//         </button>
+//         <button type="button" onClick={setLeft} style={{ margin: '0 8px' }}>
+//           Toggle False
+//         </button>
+//         <button type="button" onClick={setRight}>
+//           Toggle True
+//         </button>
+//       </p>
+//     </div>
+//   );
+// };
+
 import React from 'react';
-
-const MyComponent = () => {
-  useMount(() => {
-    message.info('mount');
-  });
-
-  return <div>Hello World</div>;
-};
+import useToggle from './';
 
 export default () => {
-  const [state, { toggle }] = useBoolean(false);
+  const [state, { toggle, set, setLeft, setRight }] = useToggle(
+    'Hello',
+    'World'
+  );
 
-  message.info('你好');
   return (
-    <>
-      <button type="button" onClick={toggle}>
-        {state ? 'unmount' : 'mount'}
-      </button>
-      {state && <MyComponent />}
-    </>
+    <div>
+      <p>Effects：{state}</p>
+      <p>
+        <button type="button" onClick={toggle}>
+          Toggle
+        </button>
+        <button
+          type="button"
+          onClick={() => set('Hello')}
+          style={{ margin: '0 8px' }}
+        >
+          Set Hello
+        </button>
+        <button type="button" onClick={() => set('World')}>
+          Set World
+        </button>
+        <button type="button" onClick={setLeft} style={{ margin: '0 8px' }}>
+          Set Left
+        </button>
+        <button type="button" onClick={setRight}>
+          Set Right
+        </button>
+      </p>
+    </div>
   );
 };
